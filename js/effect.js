@@ -3,6 +3,7 @@ const form = document.querySelector('.img-upload__form');
 const sliderElement = document.querySelector('.effect-level__slider');
 const effectLevel = document.querySelector('.effect-level__value');
 
+// Описываем доступные эффекты с их параметрами.
 const EFFECTS = [
   {
     name: 'none',
@@ -54,8 +55,10 @@ const EFFECTS = [
 const DEFAULT_EFFECT = EFFECTS[0];
 let chosenEffect = DEFAULT_EFFECT;
 
+// Функция, чтобы проверить, является ли текущий эффект эффектом по умолчанию.
 const isDefault = () => chosenEffect === DEFAULT_EFFECT;
 
+// Функция для обновления настроек слайдера в зависимости от выбранного эффекта.
 const updateSlider = () => {
   sliderElement.classList.remove('hidden');
   sliderElement.noUiSlider.updateOptions({
@@ -72,6 +75,7 @@ const updateSlider = () => {
   }
 };
 
+// Функция, вызываемая при изменении формы (выборе другого эффекта).
 const onFormChange = (evt) => {
   if (!evt.target.classList.contains('effects__radio')) {
     return;
@@ -80,6 +84,7 @@ const onFormChange = (evt) => {
   updateSlider();
 };
 
+// Функция, вызываемая при обновлении значения слайдера.  Применяет эффект к изображению.
 const onSliderUpdate = () => {
   image.style.filter = 'none';
   image.className = '';
@@ -93,11 +98,13 @@ const onSliderUpdate = () => {
   effectLevel.value = sliderValue;
 };
 
+// Функция для сброса эффектов к значению по умолчанию.
 const resetEffects = () => {
   chosenEffect = DEFAULT_EFFECT;
   updateSlider();
 };
 
+// Инициализация слайдера noUiSlider с параметрами по умолчанию.
 noUiSlider.create(sliderElement, {
   range: {
     min: DEFAULT_EFFECT.min,
@@ -109,6 +116,7 @@ noUiSlider.create(sliderElement, {
 });
 updateSlider();
 
+// Назначаем обработчики событий: изменение формы и обновление слайдера.
 form.addEventListener('change', onFormChange);
 sliderElement.noUiSlider.on('update', onSliderUpdate);
 

@@ -1,3 +1,7 @@
+// Этот код отвечает за отображение большой картинки с комментариями при клике на миниатюру.
+
+// Получаем элементы DOM, с которыми будем работать.
+
 const bigPicture = document.querySelector('.big-picture');
 const commentCount = document.querySelector('.social__comment-count');
 const commentList = document.querySelector('.social__comments');
@@ -5,15 +9,11 @@ const commentsLoader = document.querySelector('.comments-loader');
 const body = document.querySelector('body');
 const cancelButton = document.querySelector('.big-picture__cancel');
 
+const COMMENTS_PER_PORTION = 5;// Количество комментариев, загружаемых за раз.
+let commentsShown = 0; // Сколько комментариев уже показано.
+let comments = []; // Массив комментариев для текущей картинки.
 
-
-
-
-const COMMENTS_PER_PORTION = 5;
-let commentsShown = 0;
-let comments = [];
-
-
+// Функция для создания HTML-элемента комментария.
 const createComment = ({ avatar, name, message }) => {
   const comment = document.createElement('li');
   comment.innerHTML =
@@ -27,10 +27,9 @@ const createComment = ({ avatar, name, message }) => {
   return comment;
 };
 
-
+// Функция для отрисовки комментариев на странице.
 const renderComments = () => {
-  commentsShown += COMMENTS_PER_PORTION; //
-
+  commentsShown += COMMENTS_PER_PORTION;
 
   if (commentsShown >= comments.length) {
     commentsLoader.classList.add('hidden');
@@ -50,6 +49,7 @@ const renderComments = () => {
   commentCount.innerHTML = `${commentsShown} из <span class="comments-count">${comments.length}</span> комментариев`;
 };
 
+// Функция для скрытия большой картинки.
 const hideBigPicture = () => {
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
@@ -57,7 +57,7 @@ const hideBigPicture = () => {
   commentsShown = 0;
 };
 
-
+// Функция-обработчик нажатия клавиши Esc.
 function onEscKeyDown(evt) {
   if (evt.key === 'Escape') {
     evt.preventDefault();
@@ -65,13 +65,15 @@ function onEscKeyDown(evt) {
   }
 }
 
-
+// Функция-обработчик клика на кнопку закрытия.
 const onCancelButtonClick = () => {
   hideBigPicture();
 };
 
+// Функция-обработчик клика на кнопку "Загрузить еще".
 const onCommentsLoaderClick = () => renderComments();
 
+// Функция для отрисовки деталей картинки (URL, лайки, описание).
 const renderPictureDetails = ({ url, likes, description }) => {
   bigPicture.querySelector('.big-picture__img img').src = url;
   bigPicture.querySelector('.big-picture__img img').alt = description;
@@ -79,6 +81,7 @@ const renderPictureDetails = ({ url, likes, description }) => {
   bigPicture.querySelector('.social__caption').textContent = description;
 };
 
+// Функция для отображения большой картинки.
 const showBigPicture = (data) => {
   bigPicture.classList.remove('hidden');
   body.classList.add('modal-open');
@@ -92,6 +95,7 @@ const showBigPicture = (data) => {
   }
 };
 
+// Назначаем обработчики событий кнопкам.
 cancelButton.addEventListener('click', onCancelButtonClick);
 commentsLoader.addEventListener('click', onCommentsLoaderClick);
 

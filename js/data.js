@@ -1,3 +1,5 @@
+// Этот код генерирует массив объектов, представляющих фотографии с комментариями.
+
 import { getRandomPositiveInteger, getRandomArrayElement } from './util.js';
 
 const commentLines = [
@@ -25,11 +27,13 @@ const descriptions = [
 
 const names = ['Николай', 'Аким', 'Ким', 'Харитон', 'Тимур', 'Степан'];
 
+// Функция createMessage создает строку сообщения, выбирая случайные элементы из массива commentLines.
 const createMessage = () => //
   Array.from({ length: getRandomPositiveInteger(1, 2) }, () =>
     getRandomArrayElement(commentLines)
   ).join(' ');
 
+  // Функция createComment создает объект комментария со случайными данными: id, avatar, message, name.
 const createComment = (index) => ({ //
   id: index,
   avatar: `img/avatar-${getRandomPositiveInteger(1, 6)}.svg`,
@@ -37,6 +41,7 @@ const createComment = (index) => ({ //
   name: getRandomArrayElement(names),
 });
 
+// Функция createPicture создает объект фотографии со случайными данными: id, url, description, likes, comments.
 const createPicture = (index) => ({ //
   id: index,
   url: `photos/${index}.jpg`,
@@ -48,6 +53,7 @@ const createPicture = (index) => ({ //
   ),
 });
 
+// Функция getPictures создает массив из 25 объектов фотографий, используя функцию createPicture.
 const getPictures = () =>
   Array.from({ length: 25 }, (_, pictureIndex) =>
     createPicture(pictureIndex + 1)

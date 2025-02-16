@@ -1,3 +1,4 @@
+// загрузка изображений с сервера, происходит сразу при открытии ПО
 const getData = async (onSuccess, onFail) => {
   try {
     const response = await fetch(
@@ -15,6 +16,7 @@ const getData = async (onSuccess, onFail) => {
   }
 };
 
+// передача данных на сервер (данные берутся из формы)
 const sendData = async (onSuccess, onFail, body) => {
   try {
     const response = await fetch(

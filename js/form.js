@@ -15,19 +15,22 @@ const MIN_HASHTAG_LENGTH = 2;
 const MAX_HASHTAG_LENGTH = 20;
 const UNVALID_SYMBOLS = /[^a-zA-Z0-9а-яА-ЯёЁ]/g;
 
-
+// Инициализация библиотеки Pristine для валидации формы.
+// Связывает Pristine с формой и задает классы для отображения ошибок валидации.
 const pristine = new Pristine(form, {
   classTo: 'img-upload__element',
   errorTextParent: 'img-upload__element',
   errorTextClass: 'img-upload__error',
 });
 
+// Функция показа модального окна.
 const showModal = () => {
   overlay.classList.remove('hidden');
   body.classList.add('modal-open');
   document.addEventListener('keydown', onEscKeyDown);
 };
 
+// Функция скрытия модального окна.
 const hideModal = () => {
   form.reset();
   resetScale();
@@ -43,15 +46,12 @@ const hideModal = () => {
 
 
 
-
-
-
-
-
+// Функция проверки, находится ли фокус в текстовом поле (поле хэштегов или комментариев).
 const isTextFieldFocused = () =>
   document.activeElement === hashtagField ||
   document.activeElement === commentField;
 
+  // Функция-обработчик нажатия клавиши Esc.
 function onEscKeyDown(evt) {
   if (evt.key === 'Escape' && !isTextFieldFocused()) {
     evt.preventDefault();
@@ -59,17 +59,18 @@ function onEscKeyDown(evt) {
   }
 }
 
-
+// Функция-обработчик клика по кнопке отмены.
 const onCancelButtonClick = () => {
   hideModal();
 };
 
+// Функция-обработчик изменения значения поля загрузки файла.
 const onFileInputChange = () => {
   showModal();
 };
 
 
-
+// Функции для валидации хэштегов 
 
 const startsWithHash = (string) => string[0] === '#';
 
@@ -90,8 +91,6 @@ const hasUniqueTags = (tags) => {
 
 
 
-
-
 const validateTags = (value) => {
   const tags = value
     .trim()
@@ -100,16 +99,20 @@ const validateTags = (value) => {
   return hasValidCount(tags) && hasUniqueTags(tags) && tags.every(isValidTag);
 };
 
+
+// Функция блокировки кнопки отправки.
 const blockSubmitButton = () => {
   submitButton.disabled = true;
   submitButton.textContent = 'Отправляю...';
 };
 
+// Функция разблокировки кнопки отправки.
 const unblockSubmitButton = () => {
   submitButton.disabled = false;
   submitButton.textContent = 'Опубликовать';
 };
 
+// Добавление валидатора для поля хэштегов.
 pristine.addValidator(
   hashtagField,
   validateTags,
@@ -119,20 +122,21 @@ pristine.addValidator(
 
 
 
-
+// Функция установки обработчика отправки формы.
 const setOnFormSubmit = (cb) => {
   form.addEventListener('submit', async (evt) => {
     evt.preventDefault();
     const isValid = pristine.validate();
 
     if (isValid) {
-      blockSubmitButton();
-      await cb(new FormData(form));
-      unblockSubmitButton();
+      blockSubmitButton(); // Блокирует кнопку отправки.
+      await cb(new FormData(form)); // Вызывает переданную функцию обратного вызова с данными формы.
+      unblockSubmitButton();// Разблокирует кнопку отправки.
     }
   });
 };
 
+// Добавление обработчиков событий для поля загрузки файла и кнопки отмены.
 fileField.addEventListener('change', onFileInputChange);
 cancelButton.addEventListener('click', onCancelButtonClick);
 
