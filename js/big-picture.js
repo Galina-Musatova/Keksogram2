@@ -88,10 +88,10 @@ const showBigPicture = (data) => {
   commentsLoader.classList.add('hidden');
   document.addEventListener('keydown', onEscKeyDown);
 
-  renderPictureDetails(data);
+  renderPictureDetails(data); //отрисовка деталей картинки (URL, лайки, описание)
   comments = data.comments;
   if (comments.length > 0) {
-    renderComments();
+    renderComments();  //отрисовка комментариев на странице
   }
 };
 

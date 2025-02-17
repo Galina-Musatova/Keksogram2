@@ -1,3 +1,6 @@
+// Этот код отвечает за отображение сообщений об успехе и ошибке на странице.
+
+// Получаем шаблоны сообщений из HTML.  внутри template.
 const successMessage = document
   .querySelector('#success')
   .content.querySelector('.success');
@@ -6,6 +9,7 @@ const errorMessage = document
   .content.querySelector('.error');
 const body = document.querySelector('body');
 
+// Функция для отображения сообщения об успехе.
 const showSuccessMessage = () => {
   body.append(successMessage);
   body.addEventListener('keydown', onEscDown);
@@ -15,6 +19,7 @@ const showSuccessMessage = () => {
     .addEventListener('click', hideMessage);
 };
 
+// Функция для отображения сообщения об ошибке.  Аналогична showSuccessMessage.
 const showErrorMessage = () => {
   body.append(errorMessage);
   body.addEventListener('keydown', onEscDown);
@@ -23,6 +28,7 @@ const showErrorMessage = () => {
     .addEventListener('click', hideMessage);
 };
 
+// Функция для скрытия сообщения.
 function hideMessage() {
   const messageElement =
     document.querySelector('.success') || document.querySelector('.error');
@@ -31,6 +37,7 @@ function hideMessage() {
   body.removeEventListener('click', onBodyClick);
 }
 
+// Функция-обработчик клика по body.  Закрывает сообщение, если клик был вне области сообщения.
 function onBodyClick(evt) {
   if (
     evt.target.closest('.success__inner') ||
@@ -41,6 +48,7 @@ function onBodyClick(evt) {
   hideMessage();
 }
 
+// Функция-обработчик нажатия Esc.  Закрывает сообщение.
 function onEscDown(evt) {
   if (evt.key === 'Escape') {
     evt.preventDefault();
