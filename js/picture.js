@@ -1,5 +1,6 @@
 import { showBigPicture } from './big-picture.js';
 
+
 // Получаем шаблон картинки из HTML
 const pictureTemplate = document
   .querySelector('#picture')
@@ -34,6 +35,7 @@ const createPicture = (data) => {
 
 // Функция для отрисовки всех картинок
 const renderPictures = (pictures) => {
+  container.querySelectorAll('.picture').forEach((element) => element.remove());
   // Создаем фрагмент для оптимизации добавления в DOM
   const fragment = document.createDocumentFragment();
   // Для каждой картинки в цикле
