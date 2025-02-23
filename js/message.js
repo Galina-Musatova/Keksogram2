@@ -12,8 +12,8 @@ const body = document.querySelector('body');
 // Функция для отображения сообщения об успехе.
 const showSuccessMessage = () => {
   body.append(successMessage);
-  body.addEventListener('keydown', onEscDown);
-  body.addEventListener('click', onBodyClick);
+  body.addEventListener('keydown', onEscDown); // на нажатие клавиши
+  body.addEventListener('click', onBodyClick); //Закрывает сообщение, если клик был вне области сообщения.
   successMessage
     .querySelector('.success__button')
     .addEventListener('click', hideMessage);
@@ -33,8 +33,8 @@ function hideMessage() {
   const messageElement =
     document.querySelector('.success') || document.querySelector('.error');
   messageElement.remove();
-  body.removeEventListener('keydown', onEscDown);
-  body.removeEventListener('click', onBodyClick);
+  body.removeEventListener('keydown', onEscDown); //  по нажатию клавиши
+  body.removeEventListener('click', onBodyClick); //Закрывает сообщение, если клик был вне области сообщения.
 }
 
 // Функция-обработчик клика по body.  Закрывает сообщение, если клик был вне области сообщения.

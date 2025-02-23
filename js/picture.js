@@ -36,7 +36,7 @@ const createPicture = (data) => {
 const renderPictures = (pictures) => {
   // Создаем фрагмент для оптимизации добавления в DOM
   const fragment = document.createDocumentFragment();
-  // Для каждой картинки...
+  // Для каждой картинки в цикле
   pictures.forEach((picture) => {
     // Создаем элемент картинки
     const pictureElement = createPicture(picture);

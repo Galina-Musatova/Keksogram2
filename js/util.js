@@ -20,8 +20,8 @@ const getRandomArrayElement = (array) =>
 
 // Функция для отображения сообщения об ошибке на странице.
 const showAlert = (message) => {
-  const alert = document.createElement('div');
-  alert.style.position = 'absolute';
+  const alert = document.createElement('div'); //создаем див
+  alert.style.position = 'absolute'; // задаем стили
   alert.style.zIndex = '100';
   alert.style.left = '0';
   alert.style.top = '0';
@@ -30,7 +30,7 @@ const showAlert = (message) => {
   alert.style.fontSize = '30px';
   alert.style.textAlign = 'center';
   alert.style.backgroundColor = 'red';
-  alert.textContent = message;
+  alert.textContent = message; // выводим сообщение об ошибке
   document.body.append(alert);
 
   setTimeout(() => {  // Через заданное время (ALERT_SHOW_TIME).

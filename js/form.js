@@ -16,7 +16,7 @@ const MAX_HASHTAG_LENGTH = 20;
 const UNVALID_SYMBOLS = /[^a-zA-Z0-9а-яА-ЯёЁ]/g;
 
 // Инициализация библиотеки Pristine для валидации формы.
-// Связывает Pristine с формой и задает классы для отображения ошибок валидации.
+// Связывает Pristine с формой и задает классы из библиотеки для отображения ошибок валидации.
 const pristine = new Pristine(form, {
   classTo: 'img-upload__element',
   errorTextParent: 'img-upload__element',
@@ -40,8 +40,6 @@ const hideModal = () => {
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onEscKeyDown);
 };
-
-
 
 
 
@@ -72,21 +70,21 @@ const onFileInputChange = () => {
 
 // Функции для валидации хэштегов 
 
-const startsWithHash = (string) => string[0] === '#';
+const startsWithHash = (string) => string[0] === '#'; //первый знак #
 
 const hasValidLength = (string) =>
-  string.length >= MIN_HASHTAG_LENGTH && string.length <= MAX_HASHTAG_LENGTH;
+  string.length >= MIN_HASHTAG_LENGTH && string.length <= MAX_HASHTAG_LENGTH; // длина строки > min и < max
 
-const hasValidSymbols = (string) => !UNVALID_SYMBOLS.test(string.slice(1));
+const hasValidSymbols = (string) => !UNVALID_SYMBOLS.test(string.slice(1)); // символы только разрешенные
 
 const isValidTag = (tag) =>
-  startsWithHash(tag) && hasValidLength(tag) && hasValidSymbols(tag);
+  startsWithHash(tag) && hasValidLength(tag) && hasValidSymbols(tag); // совпадают все условия хэштегов
 
 const hasValidCount = (tags) => tags.length <= MAX_HASHTAG_COUNT;
 
 const hasUniqueTags = (tags) => {
-  const lowerCaseTags = tags.map((tag) => tag.toLowerCase());
-  return lowerCaseTags.length === new Set(lowerCaseTags).size;
+  const lowerCaseTags = tags.map((tag) => tag.toLowerCase()); //создает новый массив и преобразует символы строки в нижний регистр  
+  return lowerCaseTags.length === new Set(lowerCaseTags).size; //конструктор Set для преобразования массива в набор и возвращ количество значений
 };
 
 

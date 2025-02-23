@@ -26,7 +26,7 @@ const onSmallerButtonClick = () => {
 
 // Обработчик клика на кнопку увеличения масштаба.
 const onBiggerButtonClick = () => {
-  const currentValue = parseInt(scaleInput.value, 10);
+  const currentValue = parseInt(scaleInput.value, 10); // преобраз строку в целое число в десятич системе
   let newValue = currentValue + SCALE_STEP;
   if (newValue > MAX_SCALE) {
     newValue = MAX_SCALE;
@@ -40,7 +40,7 @@ const resetScale = () => {
 };
 
 // Назначаем обработчики событий на кнопки.
-smallerButton.addEventListener('click', onSmallerButtonClick);
-biggerButton.addEventListener('click', onBiggerButtonClick);
+smallerButton.addEventListener('click', onSmallerButtonClick); // на кнопку уменьш масштаба
+biggerButton.addEventListener('click', onBiggerButtonClick);  // увелич масштаба
 
 export { resetScale };
